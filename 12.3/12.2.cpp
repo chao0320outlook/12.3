@@ -5,9 +5,9 @@
 
 using std::cout;
 
-int StrngBad::mun_strings = 0;                                   //数组内成员数
+int String::mun_strings = 0;                                   //数组内成员数
 
-StrngBad::StrngBad(const char*s)
+String::String(const char*s)                                    //构造函数
 {
 	len = std::strlen(s);
 	str = new char[len + 1];
@@ -16,7 +16,18 @@ StrngBad::StrngBad(const char*s)
 	cout << mun_strings << ": \"" << str << "\" object created\n";
 }
 
-StrngBad::StrngBad()
+
+String::String(const String &st)                              //复制构造函数
+{
+	mun_strings++;
+	len = st.len;
+	str = new char[len + 1];
+	strcpy_s(str, len + 1, st.str);
+	mun_strings++;
+	cout << mun_strings << ": \"" << str << "\" object created\n";
+}
+
+String::String()                                                //默认构造函数
 {
 	len = 4;
 	str = new char[4];
@@ -25,7 +36,7 @@ StrngBad::StrngBad()
 	cout << mun_strings << ": \"" << str << "\" default object created\n";
 }
 
-StrngBad::~StrngBad()
+String::~String()                                               //析构函数
 {
 	cout <<"\""<< str <<"\"  object seleted, ";
 	--mun_strings;
@@ -33,7 +44,7 @@ StrngBad::~StrngBad()
 	delete[]str;
 }
 
-std::ostream & operator <<(std::ostream & os, const StrngBad &st)
+std::ostream & operator <<(std::ostream & os, const String &st)
 {
 	os << st.str;
 	return os; 
